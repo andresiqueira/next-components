@@ -4,7 +4,7 @@ export interface CardProps {
   title: string
   subtitle?: string
   text: string
-  image?: string | StaticImageData | HTMLImageElement
+  image: string | StaticImageData | HTMLImageElement
 }
 
 export const Card = ({ title, subtitle, text, image }: CardProps) => {
@@ -15,9 +15,10 @@ export const Card = ({ title, subtitle, text, image }: CardProps) => {
         flex
         justify-center
         relative
-        border
+        border-2
+        border-gray-800
         shadow-md
-        w-[18.75rem]
+        w-72
         h-96
         rounded-xl
         overflow-hidden
@@ -31,14 +32,15 @@ export const Card = ({ title, subtitle, text, image }: CardProps) => {
         flex
         flex-col
         items-center
-        justify-end
+        justify-start
         text-white
         bg-gradient-to-t
         from-black
         to-black/0
         w-full
         h-3/4
-        p-6
+        pt-16
+        px-6
         text-center
       ">
         <h3 className="
@@ -53,6 +55,7 @@ export const Card = ({ title, subtitle, text, image }: CardProps) => {
       ">{subtitle}</h4>
         <p className="
           text-sm
+          break-words
         ">{text}</p>
       </div>
     </div>

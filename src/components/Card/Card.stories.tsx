@@ -9,6 +9,14 @@ import { Card } from '.';
 export default {
   title: 'Components/Card',
   component: Card,
+  parameters: {
+    backgrounds: {
+      default: 'black',
+      values: [
+        { name: 'black', value: '#111' },
+      ],
+    }
+  }
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 } as ComponentMeta<typeof Card>;
 
