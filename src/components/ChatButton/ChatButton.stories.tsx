@@ -1,5 +1,4 @@
 import React from 'react';
-import { mock } from "./mock"
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
