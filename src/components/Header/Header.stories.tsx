@@ -1,13 +1,15 @@
 import React from 'react';
+import { mockRoutes } from "./mock"
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { ChatButton } from '.';
+import { Header } from '.';
+import { mock } from '../Hero/mock';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Components/ChatButton',
-  component: ChatButton,
+  title: 'Components/Header',
+  component: Header,
   parameters: {
     backgrounds: {
       default: 'black',
@@ -17,17 +19,16 @@ export default {
     }
   }
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-} as ComponentMeta<typeof ChatButton>;
+} as ComponentMeta<typeof Header>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof ChatButton> = (args) =>
-  <div className='h-[125rem]'>
-    <ChatButton {...args} />
-  </div>;
+const Template: ComponentStory<typeof Header> = (args) => 
+<div className='h-[125rem]'>
+  <Header {...args} />
+</div>;
 
 export const Normal = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Normal.args = {
-  phone: '5598987309577',
-  message: 'Oi, estou vindo do site'
+  routes: mockRoutes
 };
