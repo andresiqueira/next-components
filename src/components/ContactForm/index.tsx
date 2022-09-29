@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState  } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -8,7 +8,6 @@ interface FormValues {
   user_name: string,
   user_email: string,
   message: string,
-  target: any,
 }
 
 const schema = yup.object().shape({
@@ -18,7 +17,11 @@ const schema = yup.object().shape({
 })
 
 export const ContactForm = () => {
+  const [responseCodeAPI, setResponseCodeAPI] = useState<string | null>(null)
+  console.log('Estado', responseCodeAPI);
+  
   const form = useRef<HTMLFormElement | null>(null);
+  
   const { 
     register, 
     handleSubmit, 
@@ -28,12 +31,18 @@ export const ContactForm = () => {
     resolver: yupResolver(schema)
   });
 
-  console.log('lista de erros', errors);
-  
+  const message = (res: string | null) => res
+
+  useEffect(() => {
+    message(responseCodeAPI)
+    const timeOut = setTimeout(() => setResponseCodeAPI(null), 3000)
+    return () => clearTimeout(timeOut)
+  },[responseCodeAPI])
+
   const sendEmail = (e: FormValues) => {
-    emailjs.sendForm('service_id', 'template_id', form.current!, 'key')
+    emailjs.sendForm('service', 'template', form.current!, 'public_key')
       .then((result) => {
-        console.log(result.text);
+        setResponseCodeAPI(result.text)
       }, (error) => {
         console.log(error.text);
       });
@@ -67,6 +76,7 @@ export const ContactForm = () => {
         {errors?.message && <p className='text-red-400 text-sm absolute bottom-[-25px]'>{errors.message.message}</p>}
       </div>
       <button type='submit' className='bg-orange-600 rounded-md p-3 mt-2'>Enviar</button>
+      <p className='text-red-400 text-sm '>{message(responseCodeAPI)}</p>
     </form>
   );
 };
